@@ -3,12 +3,17 @@ console.log("* BBKZTools Staring: " + cmdArgs);
 // console.log("* dirname:"+ __dirname)
 
 switch ((cmdArgs[0] || "").toLowerCase()) { 
-  case '-phrase':
+  case "-phrase":
   	//bbkztools -phrase projectName savePath buildApp?
     //ex: bbkztools -phrase map map/phrase/ -app
     var phrase = require("./phrase") 
-    phrase.build(cmdArgs[1], cmdArgs[2], (cmdArgs[3] == '-app'))
+    phrase.build(cmdArgs[1], cmdArgs[2], (cmdArgs[3] == "-app"))
     return;
+  case "-livesync":
+  	//bbkztools -livesync folderPath
+  	var livesync = require("./livesync")
+  	livesync.init(cmdArgs[1])
+  	return;
   default:
-    console.log('default option')
+    console.log("default option")
 }
