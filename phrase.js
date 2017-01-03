@@ -32,7 +32,6 @@ var phrase = {
   },
   buildWebStrings:function(data){
     var savepath = this.savefolder + 'vbphrase';
-    console.log(this.savefolder)
     var output = '';
     for(var key in data){
       output += '[fieldname: ' + key + ']\n';
@@ -41,6 +40,7 @@ var phrase = {
       }
       output += '\n\n\n';
     }
+    console.log("* Save Phrase to: " + this.savefolder)
     fs.writeFile(savepath,output,function(err){
       if (err) throw err;
     });
