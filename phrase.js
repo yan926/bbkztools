@@ -4,10 +4,10 @@ var xmlbuilder = require('xmlbuilder')
 var _auth = require('./auth')
 
 var phrase = {
-  build:function(product,savefolder = '',toBuildApp =false) {
+  build:function(savefolder, product, toBuildApp = false){
   	this.toBuildApp = toBuildApp
     this.product = product
-    this.savefolder = savefolder
+    this.savefolder = savefolder || ''
     var auth = _auth.get()
     request({
       url:  "http://" + auth['host'] + "/forum/phraseServer.php?product=" + product,
@@ -70,7 +70,7 @@ var phrase = {
       if (err) throw err;
     });
   },
-  seletLanguage:function(terms,order){
+  seletLanguage:function(terms, order){
     for(var lankey of order){
       var r = terms[lankey];
       if(r) return r;
