@@ -1,6 +1,6 @@
 {
   "name": "bbkztools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "BBKZTOOLS",
   "bin": {
     "bbkztools": "./bin/bbkztools"
@@ -12,10 +12,13 @@
   "author": "yan926",
   "license": "ISC",
   "dependencies": {
-  	"watch": "^1.0.1",
-  	"request": "^2.79.0",
-  	"ssh2": "^0.5.4",
-  	"xmlbuilder": "^8.2.2",
-    "sanitize-filename": "^1.6.1"
+    "handlebars": "^4.0.6",
+    "optipng-bin": "^3.1.2",
+    "request": "^2.79.0",
+    "sanitize-filename": "^1.6.1",
+    "spritesmith": "^3.1.0",
+    "ssh2": "^0.5.4",
+    "watch": "^1.0.1",
+    "xmlbuilder": "^8.2.2"
   }
 }
