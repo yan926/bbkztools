@@ -4,7 +4,7 @@ var xmlbuilder = require('xmlbuilder')
 var _auth = require('./auth')
 
 var phrase = {
-  build:function(savefolder, product, toBuildApp = false){
+  build:function(product, savefolder, toBuildApp = false){
   	this.toBuildApp = toBuildApp
     this.product = product
     this.savefolder = savefolder || ''

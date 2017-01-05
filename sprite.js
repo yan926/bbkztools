@@ -7,7 +7,7 @@ const optipng = require('optipng-bin');
 
 var sprite = {
   build:function(name, srcDir, destDir, cssPath) {
-    var retinaPrefix = "-2x"
+    var retinaPrefix = "@2x"
     var srcFiles = fs.readdirSync(srcDir)
     var src1 = []
     var src2 = []
@@ -33,7 +33,7 @@ var sprite = {
       }
     }
 
-    spritesmith.run({src: src1}, function handleResult (err, r) {
+    spritesmith.run({src: src1, padding:2}, function handleResult (err, r) {
       if(err) throw err;
       fs.writeFileSync(destPath, r.image);
       execFile(optipng, [destPath], err => { console.log('→ Build: ' + destPath ) });
@@ -45,7 +45,7 @@ var sprite = {
           data.sprites.push({
             name: path.basename(i,".png"),
             x: -r.coordinates[i]['x']+"px",
-            y: r.coordinates[i]['y']+"px",
+            y: -r.coordinates[i]['y']+"px",
             w: r.coordinates[i]['width']+"px",
             h: r.coordinates[i]['height']+"px"
           })
@@ -55,7 +55,7 @@ var sprite = {
         console.log('→ Build: ' + cssPath)
       } 
     });
-    spritesmith.run({src: src2}, function handleResult (err, result) {
+    spritesmith.run({src: src2, padding: 4}, function handleResult (err, result) {
       if(err) throw err;
       fs.writeFileSync(retinaDestPath, result.image);
       execFile(optipng, [retinaDestPath], err => { console.log('→ Build: ' + retinaDestPath) });

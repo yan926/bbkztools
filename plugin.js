@@ -4,7 +4,7 @@ var _auth = require('./auth')
 var sanitize = require("sanitize-filename");
 
 var plugin = {
-  build:function(savefolder = "", productStr = "", idStr = "") {
+  build:function(productStr = "", savefolder = "", idStr = "") {
     if(!productStr && !idStr) throw new Error("No Plugin Argv");
     this.savefolder = savefolder
 
