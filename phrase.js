@@ -40,7 +40,7 @@ var phrase = {
       }
       output += '\n\n\n';
     }
-    console.log("* Save Phrase to: " + this.savefolder)
+    console.log("* Save Phrase to: " + savepath)
     fs.writeFile(savepath,output,function(err){
       if (err) throw err;
     });
