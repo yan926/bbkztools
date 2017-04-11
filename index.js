@@ -4,10 +4,10 @@ console.log("* BBKZTools Staring: " + cmdArgs);
 
 switch ((cmdArgs[0] || "").toLowerCase()) { 
   case "-phrase":
-  	//bbkztools -phrase projectName savePath buildApp?
-    //ex: bbkztools -phrase map map/phrase/ -app
+  	//bbkztools -phrase projectName savePath buildApp? filename?
+    //ex: bbkztools -phrase map map/phrase/ -app vbphrase
     var phrase = require("./phrase") 
-    phrase.build(cmdArgs[1], cmdArgs[2], (cmdArgs[3] == "-app"))
+    phrase.build(cmdArgs[1], cmdArgs[2], (cmdArgs[3] == "-app"), cmdArgs[4])
     return;
   case "-livesync":
   	//bbkztools -livesync folderPath

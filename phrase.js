@@ -4,10 +4,11 @@ var xmlbuilder = require('xmlbuilder')
 var _auth = require('./auth')
 
 var phrase = {
-  build:function(product, savefolder, toBuildApp = false){
+  build:function(product, savefolder, toBuildApp = false, filename){
   	this.toBuildApp = toBuildApp
     this.product = product
     this.savefolder = savefolder || ''
+    this.filename = filename || 'vbphrase'
     var auth = _auth.get()
     request({
       url:  "http://" + auth['host'] + "/forum/phraseServer.php?product=" + product,
@@ -31,7 +32,7 @@ var phrase = {
     }
   },
   buildWebStrings:function(data){
-    var savepath = this.savefolder + 'vbphrase';
+    var savepath = this.savefolder + this.filename;
     var output = '';
     for(var key in data){
       output += '[fieldname: ' + key + ']\n';
