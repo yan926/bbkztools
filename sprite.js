@@ -11,12 +11,16 @@ var sprite = {
     var srcFiles = fs.readdirSync(srcDir)
     var src1 = []
     var src2 = []
-  
-    var destPath = destDir + name + ".png"
-    var retinaDestPath = destDir + name + retinaPrefix + ".png"
+    
+    var destName = name + ".png" 
+    var destPath = destDir + destName
+    var retinaDestName = name + retinaPrefix + ".png" 
+    var retinaDestPath = destDir + retinaDestName
     
     var data = {
+      destName: destName,
       destPath: destPath,
+      retinaDestName: retinaDestName,
       retinaDestPath: retinaDestPath,
       version: Date.now(),
       sprites: []

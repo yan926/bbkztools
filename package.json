@@ -1,6 +1,6 @@
 {
   "name": "bbkztools",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "BBKZTOOLS",
   "bin": {
     "bbkztools": "./bin/bbkztools"
