@@ -6,7 +6,7 @@ var phrase = {
   build:function(product, savefolder){
     if(!product) console.log("* [Error] Phrase Need Product Name!")
     savefolder = savefolder || 'src/'
-    this.savepath = savefolder + product;
+    this.savepath = savefolder + product + ".phrase";
     var auth = _auth.get()
     request({
       url:  "http://" + auth['host'] + "/forum/phraseServer.php?product=" + product,
