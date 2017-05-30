@@ -13,8 +13,8 @@ var phrase = {
       method: "GET",
       headers: {'User-Agent': 'Mozilla/5.0 AppleWebKit/537.36 Chrome/49.0.2623.112 Safari/537.36'},
       'auth': {
-        'user': auth['authuser'],
-        'pass': auth['authpass'],
+        'user': auth['http_auth_account'],
+        'pass': auth['http_auth_password'],
         'sendImmediately': false
       }
     }, this.phraseCallback.bind(this));

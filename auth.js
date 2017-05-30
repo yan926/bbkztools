@@ -1,5 +1,6 @@
 var fs = require('fs');
-var authpath = 'sftp-config.json';
+// var authpath = 'sftp-config.json';
+var authpath = '../../pysettings.json';
 var auth = {
 	get:function(){
 		if(!this.authdata) {
