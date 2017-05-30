@@ -1,14 +1,12 @@
 var fs = require('fs')
 var request = require("request")
-var xmlbuilder = require('xmlbuilder')
 var _auth = require('./auth')
 
 var phrase = {
-  build:function(product, savefolder, toBuildApp = false, filename){
-  	this.toBuildApp = toBuildApp
-    this.product = product
-    this.savefolder = savefolder || ''
-    this.filename = filename || 'vbphrase'
+  build:function(product, savefolder){
+    if(!product) console.log("* [Error] Phrase Need Product Name!")
+    savefolder = savefolder || 'src/'
+    this.savepath = savefolder + product;
     var auth = _auth.get()
     request({
       url:  "http://" + auth['host'] + "/forum/phraseServer.php?product=" + product,
@@ -24,15 +22,8 @@ var phrase = {
   phraseCallback:function(error, response, body){
     if (error) throw error;
     var data = JSON.parse(body);
-    this.buildWebStrings(data);
-    if(this.toBuildApp){
-    	var appremove = ['vbsettings','wol']
-    	this.buildAndroidStrings(data, ['text_tc','text'], 'values-zh/strings.xml',appremove);
-    	this.buildAndroidStrings(data, ['text_sc','text'], 'values-zh-rCN/strings.xml',appremove);
-    }
-  },
-  buildWebStrings:function(data){
-    var savepath = this.savefolder + this.filename;
+    
+    //build
     var output = '';
     for(var key in data){
       output += '[fieldname: ' + key + ']\n';
@@ -41,42 +32,10 @@ var phrase = {
       }
       output += '\n\n\n';
     }
-    console.log("* Save Phrase to: " + savepath)
-    fs.writeFile(savepath,output,function(err){
+    console.log("* Save Phrase to: " + this.savepath)
+    fs.writeFile(this.savepath,output,function(err){
       if (err) throw err;
     });
-  },
-  buildAndroidStrings:function(data, order, filename, remove){
-    remove = remove || [];
-    var savepath = this.savefolder + filename
-    var doc = xmlbuilder.create('resources', {
-      version: '1.0',
-      encoding: 'UTF-8'
-    });
-    for(var key in data){
-      if(remove.indexOf(key) != -1) continue;
-      doc.com(key)
-      for(var item of data[key]){
-        var v = this.seletLanguage(item,order);
-        if(v.indexOf('{2}') == -1){
-          v = v.replace(/{([\d])}/g, function(v){return "%s"}); //%s
-        }else{
-          v = v.replace(/{([\d])}/g, function(v){ return '%' + v[1] + '$s'}); //%1$s
-        }
-
-        doc.ele('string', {'name': item['varname']}, v);
-      }
-    }
-    fs.writeFile(savepath,doc.end({ pretty: true}),function(err){
-      if (err) throw err;
-    });
-  },
-  seletLanguage:function(terms, order){
-    for(var lankey of order){
-      var r = terms[lankey];
-      if(r) return r;
-    }
-    return '';
   }
 }
 

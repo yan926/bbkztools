@@ -1,6 +1,6 @@
 {
   "name": "bbkztools",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "BBKZTOOLS",
   "bin": {
     "bbkztools": "./bin/bbkztools"
@@ -18,7 +18,6 @@
     "sanitize-filename": "^1.6.1",
     "spritesmith": "^3.1.0",
     "ssh2": "^0.5.4",
-    "watch": "^1.0.1",
-    "xmlbuilder": "^8.2.2"
+    "watch": "^1.0.1"
   }
 }
