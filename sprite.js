@@ -3,7 +3,6 @@ var spritesmith = require('spritesmith');
 var handlebars = require('handlebars');
 var path = require('path')
 const {execFile} = require('child_process');
-const optipng = require('optipng-bin');
 
 var sprite = {
   build:function(name, srcDir, destDir, cssPath) {
@@ -40,7 +39,8 @@ var sprite = {
     spritesmith.run({src: src1, padding:2}, function handleResult (err, r) {
       if(err) throw err;
       fs.writeFileSync(destPath, r.image);
-      execFile(optipng, [destPath], err => { console.log('→ Build: ' + destPath ) });
+      execFile('optipng', [destPath], err => { console.log('→ Build: ' + destPath ) });
+
       // r.coordinates r.properties
       if(template && cssPath){
         data.w = r.properties.width+"px"
@@ -62,7 +62,7 @@ var sprite = {
     spritesmith.run({src: src2, padding: 4}, function handleResult (err, result) {
       if(err) throw err;
       fs.writeFileSync(retinaDestPath, result.image);
-      execFile(optipng, [retinaDestPath], err => { console.log('→ Build: ' + retinaDestPath) });
+      execFile('optipng', [retinaDestPath], err => { console.log('→ Build: ' + retinaDestPath) });
     });
   }
 
