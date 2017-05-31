@@ -25,7 +25,10 @@ switch ((cmdArgs[0] || "").toLowerCase()) {
     //ex:bbkztools -sprite icons map/sprites/src/ clientscript/ icons.less
     var sprite = require("./sprite")
     sprite.build(cmdArgs[1],cmdArgs[2],cmdArgs[3],cmdArgs[4])
-    return;  
+    return;
   default:
     console.log("* No Actions.")
+
+    // var auth = require("./auth")
+    // auth.get()
 }

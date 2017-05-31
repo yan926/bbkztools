@@ -7,6 +7,7 @@ var auth = {
 			this.authdata = JSON.parse(fs.readFileSync(authpath, 'utf8'))
 		}
 		if(!this.authdata) throw new Error("No Auth File");
+    console.log(this.authdata['demo'])
 		return this.authdata['demo']
 	}
 }
