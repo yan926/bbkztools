@@ -2,13 +2,13 @@ var fs = require('fs');
 // var authpath = 'sftp-config.json';
 var authpath = '../../pysettings.json';
 var auth = {
-	get:function(){
+	get:function(t){
+    t = t || 'demo'
 		if(!this.authdata) {
 			this.authdata = JSON.parse(fs.readFileSync(authpath, 'utf8'))
 		}
 		if(!this.authdata) throw new Error("No Auth File");
-    console.log(this.authdata['demo'])
-		return this.authdata['demo']
+		return this.authdata[t]
 	}
 }
 module.exports = auth;

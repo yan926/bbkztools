@@ -28,7 +28,4 @@ switch ((cmdArgs[0] || "").toLowerCase()) {
     return;
   default:
     console.log("* No Actions.")
-
-    // var auth = require("./auth")
-    // auth.get()
 }
