@@ -5,7 +5,7 @@ var path = require('path')
 const {execFile} = require('child_process');
 
 var sprite = {
-  build:function(name, srcDir, destDir, cssPath) {
+  build:function(name, srcDir, destDir, lessPath, cssPath, vbPath) {
     var retinaPrefix = "@2x"
     var srcFiles = fs.readdirSync(srcDir)
     var src1 = []
@@ -25,14 +25,22 @@ var sprite = {
       sprites: []
     }
 
-    var template = ""
+    var lessTemplate = ""
+    var cssTemplate = ""
+    var vbTemplate = ""
     for(var f of srcFiles){
       var fpath = srcDir + f;
       if(f.includes(".png")){
         (f.includes(retinaPrefix + ".png"))? src2.push(fpath) : src1.push(fpath)  
-      }else if(f.includes(".handlebars")){
+      }else if(f.includes(".less.handlebars")){
         var hsource = fs.readFileSync(fpath, "utf8")
-        template = handlebars.compile(hsource)
+        lessTemplate = handlebars.compile(hsource)
+      }else if(f.includes(".css.handlebars")){
+        var hsource = fs.readFileSync(fpath, "utf8")
+        cssTemplate = handlebars.compile(hsource)
+      }else if(f.includes(".vb.handlebars")){
+        var hsource = fs.readFileSync(fpath, "utf8")
+        vbTemplate = handlebars.compile(hsource)
       }
     }
 
@@ -42,22 +50,33 @@ var sprite = {
       execFile('optipng', [destPath], err => { console.log('→ Build: ' + destPath ) });
 
       // r.coordinates r.properties
-      if(template && cssPath){
-        data.w = r.properties.width+"px"
-        data.h = r.properties.height+"px"
-        for(var i in r.coordinates){
-          data.sprites.push({
-            name: path.basename(i,".png"),
-            x: -r.coordinates[i]['x']+"px",
-            y: -r.coordinates[i]['y']+"px",
-            w: r.coordinates[i]['width']+"px",
-            h: r.coordinates[i]['height']+"px"
-          })
-        }
-        var css = template(data);
+      data.w = r.properties.width+"px"
+      data.h = r.properties.height+"px"
+      for(var i in r.coordinates){
+        data.sprites.push({
+          name: path.basename(i,".png"),
+          x: -r.coordinates[i]['x']+"px",
+          y: -r.coordinates[i]['y']+"px",
+          w: r.coordinates[i]['width']+"px",
+          h: r.coordinates[i]['height']+"px"
+        })
+      }
+      if(lessTemplate && lessPath){
+        var css = lessTemplate(data);
+        fs.writeFileSync(lessPath, css);
+        console.log('→ Build: ' + lessPath)
+      } 
+      if(cssTemplate && cssPath){
+        var css = cssTemplate(data);
         fs.writeFileSync(cssPath, css);
         console.log('→ Build: ' + cssPath)
-      } 
+      }
+      if(vbTemplate && vbPath){
+        var css = vbTemplate(data);
+        fs.writeFileSync(vbPath, css);
+        console.log('→ Build: ' + vbPath)
+      }
+
     });
     spritesmith.run({src: src2, padding: 4}, function handleResult (err, result) {
       if(err) throw err;
